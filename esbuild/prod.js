@@ -12,16 +12,12 @@ const builder = async () => {
 		outfile: "./dist/game.min.js",
 		plugins: [
 			clean({
-				patterns: [
-					"./dist/*",
-					"./public/game.min.js",
-					"./public/game.min.js.map",
-				],
+				patterns: ["./dist/*", "./public/bundle/*"],
 			}),
 			copy({
 				assets: [
 					{ from: "./public/index.html", to: "./" },
-					// { from: "./public/style.css", to: "./" },
+					{ from: "./public/style.css", to: "./" },
 					// { from: "./public/favicon.ico", to: "./" },
 					// { from: "./public/favicon.png", to: "./" },
 					// { from: "./public/assets/**/*", to: "./assets/" },

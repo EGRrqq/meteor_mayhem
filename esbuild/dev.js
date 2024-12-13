@@ -6,7 +6,7 @@ esbuildServe(
 		entryPoints: ["client/game.js"],
 		bundle: true,
 		sourcemap: true,
-		outfile: "public/game.min.js",
+		outfile: "public/bundle/game.min.js",
 	},
 	{ root: "public", port: 1234 },
 );
