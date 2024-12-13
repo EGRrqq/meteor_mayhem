@@ -8,7 +8,7 @@ const rootDir = process.cwd();
 
 app.use(morgan("dev"));
 
-app.use(express.static(rootDir + "/client"));
+app.use(express.static(rootDir + "/public"));
 
 app.listen(PORT, () => {
 	console.log(`Server listening: http://localhost:${PORT}/`);
