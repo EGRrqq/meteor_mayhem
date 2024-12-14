@@ -1,4 +1,5 @@
 import Phaser, { Game } from "phaser";
+import { MainGame } from "./scenes/MainGame";
 import { Preloader } from "./scenes/Preloader";
 
 /** @type {Phaser.Types.Core.GameConfig} */
@@ -17,7 +18,7 @@ const config = {
 		zoom: 1, // Size of game canvas = game size * zoom
 	},
 	autoRound: false,
-	scene: [Preloader],
+	scene: [Preloader, MainGame],
 };
 
 export default new Game(config);

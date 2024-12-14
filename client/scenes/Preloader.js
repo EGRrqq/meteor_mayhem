@@ -1,11 +1,14 @@
 import { Scene } from "phaser";
 
+// load assets
 export class Preloader extends Scene {
 	constructor() {
 		super("Preloader");
 	}
 
+	init() {}
+
 	create() {
-		this.add.rectangle(100, 100, 50, 50, 0x00ff00);
+		this.scene.start("MainGame");
 	}
 }

@@ -3,10 +3,12 @@
 		"allowJs": true,
 		"checkJs": true,
 		"strict": true,
+		"noEmit": true,
+		"target": "ESNext",
 		"module": "ESNext",
 		"moduleResolution": "bundler",
 		"lib": ["ESNext", "DOM", "DOM.Iterable", "ScriptHost"],
-		"types": ["Phaser"],
+		"types": ["Phaser", "./types"],
 		"typeRoots": ["./node_modules/phaser/types"],
 		"allowSyntheticDefaultImports": true
 	},
