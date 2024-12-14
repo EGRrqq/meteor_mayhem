@@ -1,12 +1,14 @@
 import { Scene } from "phaser";
 
-/** @typedef {"keyW" | "keyS" | "keyD" | "keyA"} keysMap */
+/** @typedef {"keyW" | "keyS" | "keyD" | "keyA"} TKeysMap */
+/** @typedef {Record<TKeysMap, Phaser.Input.Keyboard.Key | undefined>} TKeys */
+/** @typedef {Record<TKeysMap, () => void>} TKeyActions */
 
 export class MainGame extends Scene {
-	/** @type {keysMap[]} */
+	/** @type {TKeysMap[]} */
 	keysMap = ["keyW", "keyS", "keyA", "keyD"];
 
-	/** @type {Record<keysMap, Phaser.Input.Keyboard.Key | undefined>} */
+	/** @type {TKeys} */
 	keys = {
 		keyW: undefined,
 		keyS: undefined,
@@ -14,7 +16,7 @@ export class MainGame extends Scene {
 		keyD: undefined,
 	};
 
-	/** @type {Record<keysMap, () => void>} */
+	/** @type {TKeyActions} */
 	keyActions = {
 		keyW: () => {
 			this.personData.y -= 1;
@@ -49,6 +51,7 @@ export class MainGame extends Scene {
 	}
 
 	init() {
+		// set person
 		this.person = this.add.rectangle(
 			this.personData.x,
 			this.personData.y,
@@ -56,21 +59,16 @@ export class MainGame extends Scene {
 			this.personData.h,
 			0x00ff00,
 		);
-		//this.person.setInteractive();
 
 		// set keys
-		this.keys.keyW = this.input.keyboard?.addKey(
-			Phaser.Input.Keyboard.KeyCodes.W,
-		);
-		this.keys.keyS = this.input.keyboard?.addKey(
-			Phaser.Input.Keyboard.KeyCodes.S,
-		);
-		this.keys.keyA = this.input.keyboard?.addKey(
-			Phaser.Input.Keyboard.KeyCodes.A,
-		);
-		this.keys.keyD = this.input.keyboard?.addKey(
-			Phaser.Input.Keyboard.KeyCodes.D,
-		);
+		/** @type {Record<TKeysMap, number>} */
+		const k = {
+			keyW: Phaser.Input.Keyboard.KeyCodes.W,
+			keyS: Phaser.Input.Keyboard.KeyCodes.S,
+			keyA: Phaser.Input.Keyboard.KeyCodes.A,
+			keyD: Phaser.Input.Keyboard.KeyCodes.D,
+		};
+		this.keys = /** @type {TKeys} */ (this.input.keyboard?.addKeys(k));
 	}
 
 	update() {
