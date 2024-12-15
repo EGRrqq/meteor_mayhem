@@ -1,4 +1,5 @@
 import { Scene } from "phaser";
+import { io } from "socket.io-client";
 
 /** @typedef {object} IPersonData
  * @property {IPoint} pos
@@ -10,6 +11,8 @@ import { Scene } from "phaser";
 /** @typedef {Record<TKeysMap, () => void>} TKeyActions */
 
 export class MainGame extends Scene {
+	socket = io();
+
 	/** @type {TKeysMap[]} */
 	keysMap = ["keyW", "keyS", "keyA", "keyD"];
 
@@ -44,8 +47,8 @@ export class MainGame extends Scene {
 	/** @type {IPersonData}*/
 	personData = {
 		pos: {
-			x: 250,
-			y: 250,
+			x: window.innerWidth / 2,
+			y: window.innerHeight / 2,
 		},
 		size: {
 			w: 50,
@@ -78,6 +81,8 @@ export class MainGame extends Scene {
 			keyD: Phaser.Input.Keyboard.KeyCodes.D,
 		};
 		this.keys = /** @type {TKeys} */ (this.input.keyboard?.addKeys(k));
+
+		console.log(this.socket);
 	}
 
 	update() {
