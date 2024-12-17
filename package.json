@@ -5,7 +5,8 @@
 	"type": "module",
 	"main": "server/app.js",
 	"scripts": {
-		"dev": "node esbuild/dev.js && nodemon server/app.js",
+		"dev": "node esbuild/dev.js",
+		"start": "NODE_ENV=development concurrently \"node esbuild/dev.js\" \"node --watch-path ./package.json server/app.js\"",
 		"prod": "node esbuild/prod.js"
 	},
 	"keywords": [],
@@ -14,10 +15,10 @@
 		"@types/express": "^5.0.0",
 		"@types/morgan": "^1.9.9",
 		"@types/node": "^22.10.2",
+		"concurrently": "^9.1.0",
 		"esbuild": "^0.24.0",
 		"esbuild-plugin-clean": "^1.0.1",
-		"esbuild-plugin-copy": "^2.1.1",
-		"nodemon": "^3.1.9"
+		"esbuild-plugin-copy": "^2.1.1"
 	},
 	"dependencies": {
 		"express": "^4.21.2",
