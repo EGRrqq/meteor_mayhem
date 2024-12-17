@@ -1,6 +1,9 @@
 import Phaser, { Game } from "phaser";
 import { MainGame } from "./scenes/MainGame";
 import { Preloader } from "./scenes/Preloader";
+import { GAME_CONTAINER_ID, stateInit } from "./state";
+
+stateInit();
 
 /** @type {Phaser.Types.Core.GameConfig} */
 const config = {
@@ -8,7 +11,7 @@ const config = {
 	width: window.innerWidth,
 	height: window.innerHeight,
 	scale: {
-		parent: "game-container",
+		parent: GAME_CONTAINER_ID,
 		mode: Phaser.Scale.RESIZE,
 		min: {
 			width: 800,

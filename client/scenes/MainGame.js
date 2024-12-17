@@ -1,96 +1,28 @@
 import { Scene } from "phaser";
-import { io } from "socket.io-client";
-
-/** @typedef {object} IPersonData
- * @property {IPoint} pos
- * @property {ISize} size
- * */
-
-/** @typedef {"keyW" | "keyS" | "keyD" | "keyA"} TKeysMap */
-/** @typedef {Record<TKeysMap, Phaser.Input.Keyboard.Key | undefined>} TKeys */
-/** @typedef {Record<TKeysMap, () => void>} TKeyActions */
+import { getResizeFlag, players } from "../state";
 
 export class MainGame extends Scene {
-	socket = io();
-
-	/** @type {TKeysMap[]} */
-	keysMap = ["keyW", "keyS", "keyA", "keyD"];
-
-	/** @type {TKeys} */
-	keys = {
-		keyW: undefined,
-		keyS: undefined,
-		keyA: undefined,
-		keyD: undefined,
-	};
-
-	/** @type {TKeyActions} */
-	keyActions = {
-		keyW: () => {
-			this.personData.pos.y -= 1;
-			this.person?.setY(this.personData.pos.y);
-		},
-		keyS: () => {
-			this.personData.pos.y += 1;
-			this.person?.setY(this.personData.pos.y);
-		},
-		keyA: () => {
-			this.personData.pos.x -= 1;
-			this.person?.setX(this.personData.pos.x);
-		},
-		keyD: () => {
-			this.personData.pos.x += 1;
-			this.person?.setX(this.personData.pos.x);
-		},
-	};
-
-	/** @type {IPersonData}*/
-	personData = {
-		pos: {
-			x: window.innerWidth / 2,
-			y: window.innerHeight / 2,
-		},
-		size: {
-			w: 50,
-			h: 50,
-		},
-	};
-	/** @type {Phaser.GameObjects.Rectangle | null }*/
-	person = null;
+	/** @type {Record<string, Phaser.GameObjects.Rectangle >}*/
+	rects = {};
 
 	constructor() {
 		super("MainGame");
 	}
 
-	init() {
-		// set person
-		this.person = this.add.rectangle(
-			this.personData.pos.x,
-			this.personData.pos.y,
-			this.personData.size.w,
-			this.personData.size.h,
-			0x00ff00,
-		);
-
-		// set keys
-		/** @type {Record<TKeysMap, number>} */
-		const k = {
-			keyW: Phaser.Input.Keyboard.KeyCodes.W,
-			keyS: Phaser.Input.Keyboard.KeyCodes.S,
-			keyA: Phaser.Input.Keyboard.KeyCodes.A,
-			keyD: Phaser.Input.Keyboard.KeyCodes.D,
-		};
-		this.keys = /** @type {TKeys} */ (this.input.keyboard?.addKeys(k));
-
-		console.log(this.socket);
-	}
+	preload() {}
+	init() {}
 
 	update() {
-		for (const key of this.keysMap) {
-			if (this.keys[key]?.isDown) {
-				this.keyActions[key]();
-				break;
-			}
+		// render persons
+		for (const id in players) {
+			this.rects[id] = this.add.rectangle(
+				players[id].data.pos.x,
+				players[id].data.pos.y,
+				players[id].data.size.w,
+				players[id].data.size.h,
+				players[id].data.color,
+			);
 		}
+		console.log({ rects: this.rects, players });
 	}
 }

@@ -6,7 +6,7 @@
 	"main": "server/app.js",
 	"scripts": {
 		"dev": "node esbuild/dev.js",
-		"start": "NODE_ENV=development concurrently \"node esbuild/dev.js\" \"node --watch-path ./package.json server/app.js\"",
+		"start": "NODE_ENV=development concurrently \"node esbuild/dev.js\" \"node --watch-path ./package.json --watch-path ./server server/app.js\"",
 		"prod": "node esbuild/prod.js"
 	},
 	"keywords": [],
